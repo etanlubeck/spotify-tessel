@@ -5,7 +5,8 @@
   "main": "gprs.js",
   "dependencies": {
     "gprs-sim900": "~0.1.4",
-    "request": "~2.50.0"
+    "request": "~2.50.0",
+    "spotify-web-api-node": "^1.1.0"
   },
   "devDependencies": {},
   "scripts": {

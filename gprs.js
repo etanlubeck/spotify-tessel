@@ -1,8 +1,12 @@
 var tessel = require('tessel');
 var hardware = tessel.port['A'];
 var gprslib = require('gprs-sim900');
-var request = require('request');
+var wifi = require('wifi-cc3000');
+
 var spotifySettings = require('./config');
+
+var SpotifyWebApi = require('spotify-web-api-node');
+
 
 var phoneNumber = '18189614222'; // Replace the #s with the String representation of the phone number, including country code (1 for USA)
 var message = 'Testing tessel!';
@@ -14,30 +18,26 @@ gprs.on('ready', function() {
   console.log('GPRS module connected to Tessel. Searching for network...')
   //  Give it 10 more seconds to connect to the network, then try to send an SMS
   setTimeout(function() {
-    console.log('Sending', message, 'to', phoneNumber, '...');
-    // Send message
-    gprs.sendSMS(phoneNumber, message, function smsCallback(err, data) {
-      if (err) {
-        return console.log(err);
-      }
-      var success = data[0] !== -1;
-      console.log('Text sent:', success);
-      if (success) {
-        // If successful, log the number of the sent text
-        console.log('GPRS Module sent text #', data[0]);
-      }
-    });
+    // console.log('Sending', message, 'to', phoneNumber, '...');
+    // // Send message
+    // gprs.sendSMS(phoneNumber, message, function smsCallback(err, data) {
+    //   if (err) {
+    //     return console.log(err);
+    //   }
+    //   var success = data[0] !== -1;
+    //   console.log('Text sent:', success);
+    //   if (success) {
+    //     // If successful, log the number of the sent text
+    //     console.log('GPRS Module sent text #', data[0]);
+    //   }
+    // });
+
+
   }, 10000);
- request.post({
-    uri: spotifySettings.config.spotify.authUrl,
-    body: {grant_type:'client_credentials'},
-    json: true,
-    headers: {'Authorization':spotifySettings.config.spotify.header}
-  },
-  function (err, response, body){
-  console.log(arguments);
-  });
 });
+
+
+
 
 
 //  Emit unsolicited messages beginning with...
